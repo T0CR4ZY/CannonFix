@@ -1,0 +1,24 @@
+# CannonFix Configuration
+# Fixes falling blocks and TNT for factions cannoning
+
+# TNT Settings
+tnt:
+  # Use consistent explosion radius (vanilla = 4.0)
+  consistent-radius: true
+  
+  # Apply consistent knockback to nearby falling blocks and TNT
+  consistent-knockback: true
+  
+  # Radius to apply knockback effect
+  knockback-radius: 8.0
+  
+  # Knockback power multiplier (1.0 = vanilla-like)
+  knockback-power: 1.0
+
+# Falling Block Settings
+falling-blocks:
+  # Protect falling blocks from entity cramming
+  prevent-cramming: true
+  
+  # Protect falling blocks from being removed by paper optimizations
+  prevent-removal: true

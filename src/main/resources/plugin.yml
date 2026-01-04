@@ -1,0 +1,26 @@
+name: CannonFix
+version: 1.0.0
+main: com.cannonfix.CannonFix
+api-version: '1.21'
+author: Claude
+description: Fixes falling block and TNT issues for factions cannoning
+
+commands:
+  cannonfix:
+    description: CannonFix main command
+    usage: /<command> [reload|status]
+    aliases: [cf]
+
+permissions:
+  cannonfix.*:
+    description: All CannonFix permissions
+    default: op
+    children:
+      cannonfix.reload: true
+      cannonfix.status: true
+  cannonfix.reload:
+    description: Reload config
+    default: op
+  cannonfix.status:
+    description: View status
+    default: op
