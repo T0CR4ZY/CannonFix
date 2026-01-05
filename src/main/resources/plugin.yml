@@ -1,14 +1,14 @@
 name: CannonFix
-version: 1.1.0
+version: 1.3.0
 main: com.cannonfix.CannonFix
 api-version: '1.21'
 author: Claude
-description: Fixes falling block and TNT issues for factions cannoning. Auto-configures server for optimal cannon performance.
+description: Auto-configures server for optimal TNT cannoning. Fixes W->E stacking issues and normalizes physics.
 
 commands:
   cannonfix:
     description: CannonFix main command
-    usage: /<command> [reload|status|test|fixworld]
+    usage: /<command> [reload|status|fixworld]
     aliases: [cf, cannon]
 
 permissions:
@@ -18,16 +18,12 @@ permissions:
     children:
       cannonfix.reload: true
       cannonfix.status: true
-      cannonfix.test: true
       cannonfix.fixworld: true
   cannonfix.reload:
     description: Reload config
     default: op
   cannonfix.status:
     description: View status
-    default: op
-  cannonfix.test:
-    description: Run tests
     default: op
   cannonfix.fixworld:
     description: Fix world gamerules

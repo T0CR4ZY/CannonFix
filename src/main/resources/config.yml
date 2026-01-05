@@ -1,52 +1,56 @@
 # CannonFix Configuration
-# Fixes falling blocks and TNT for factions cannoning
+# Automatically configures your server for optimal cannoning
 
 # Auto-Configure Server Settings
-# This will automatically modify your paper/spigot configs on startup
+# Modifies paper/spigot configs on startup
 auto-configure:
   enabled: true
-  # Settings that will be applied:
-  # - spigot.yml: tnt-entity-height-nerf: 0
-  # - spigot.yml: max-tnt-per-tick: 5000
-  # - paper-world-defaults.yml: falling-block-height-nerf: 0
-  # - paper-world-defaults.yml: tnt-entity-height-nerf: 0
-  # - paper-world-defaults.yml: redstone-implementation: VANILLA
-  # - paper-world-defaults.yml: max-entity-collisions: 0
-  # - paper-global.yml: allow-permanent-block-break-exploits: true
-  # - paper-global.yml: allow-headless-pistons: true
-
-# Gamerule Settings
-gamerules:
-  # Disable entity cramming (maxEntityCramming = 0)
-  # This prevents sand from popping into items when stacked
-  disable-cramming: true
 
 # TNT Settings
 tnt:
   # Use consistent explosion radius (vanilla = 4.0)
   consistent-radius: true
   
-  # Apply consistent knockback to nearby falling blocks and TNT
+  # Apply consistent knockback to nearby entities
   consistent-knockback: true
   
-  # Radius to apply knockback effect
+  # Radius for knockback
   knockback-radius: 8.0
   
-  # Knockback power multiplier (1.0 = vanilla-like)
+  # Knockback power (1.0 = vanilla-like)
   knockback-power: 1.0
-
-# Sand Stacking Settings
-sand-stacking:
-  # Automatically stack sand on top of existing sand
-  auto-stack: true
   
-  # Maximum height sand can stack
-  max-stack-height: 256
+  # Normalize TNT position to reduce floating point errors
+  # This helps with W->E direction stacking issues
+  normalize-position: true
   
-  # Prevent sand from dropping as items when it can't place
-  prevent-drops: true
+  # Normalize TNT velocity for consistency
+  normalize-velocity: true
 
-# Debug Settings
-debug:
-  # Log when entities are removed (for troubleshooting)
-  log-entity-removal: false
+# Falling Block Settings (sand, gravel, etc)
+falling-blocks:
+  # Normalize position to reduce floating point drift
+  normalize-position: true
+  
+  # Normalize velocity for consistency
+  normalize-velocity: true
+
+# ==============================================
+# Settings applied on startup (requires restart):
+# ==============================================
+# spigot.yml:
+#   - tnt-entity-height-nerf: 0
+#   - max-tnt-per-tick: 5000
+#
+# paper-world-defaults.yml:
+#   - falling-block-height-nerf: 0
+#   - tnt-entity-height-nerf: 0
+#   - redstone-implementation: VANILLA
+#   - max-entity-collisions: 0
+#
+# paper-global.yml:
+#   - allow-permanent-block-break-exploits: true
+#   - allow-headless-pistons: true
+#
+# Gamerules:
+#   - maxEntityCramming: 0
