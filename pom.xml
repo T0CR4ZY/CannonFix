@@ -6,11 +6,8 @@
 
     <groupId>com.cannonfix</groupId>
     <artifactId>CannonFix</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
-
-    <name>CannonFix</name>
-    <description>Fixes falling block and TNT issues for factions cannoning</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -44,11 +41,6 @@
                     <source>21</source>
                     <target>21</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
             </plugin>
         </plugins>
         <resources>

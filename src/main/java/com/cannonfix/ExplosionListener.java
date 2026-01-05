@@ -24,9 +24,8 @@ public class ExplosionListener implements Listener {
         Entity entity = event.getEntity();
         
         if (entity instanceof TNTPrimed) {
-            // Ensure consistent explosion radius
             if (plugin.getConfig().getBoolean("tnt.consistent-radius", true)) {
-                event.setRadius(4.0f); // Vanilla TNT radius
+                event.setRadius(4.0f);
             }
         }
     }
@@ -37,24 +36,19 @@ public class ExplosionListener implements Listener {
         Location explosionLoc = event.getLocation();
         
         if (entity instanceof TNTPrimed) {
-            // Apply consistent velocity to nearby falling blocks
             if (plugin.getConfig().getBoolean("tnt.consistent-knockback", true)) {
                 double radius = plugin.getConfig().getDouble("tnt.knockback-radius", 8.0);
                 
                 for (Entity nearby : explosionLoc.getWorld().getNearbyEntities(explosionLoc, radius, radius, radius)) {
                     if (nearby instanceof FallingBlock || nearby instanceof TNTPrimed) {
-                        if (nearby.equals(entity)) continue; // Skip the exploding TNT
+                        if (nearby.equals(entity)) continue;
                         
-                        // Calculate knockback vector
                         Vector direction = nearby.getLocation().toVector().subtract(explosionLoc.toVector());
                         double distance = direction.length();
                         
                         if (distance > 0 && distance <= radius) {
-                            // Normalize and scale based on distance
                             direction.normalize();
                             double power = (radius - distance) / radius;
-                            
-                            // Apply velocity
                             Vector knockback = direction.multiply(power * plugin.getConfig().getDouble("tnt.knockback-power", 1.0));
                             nearby.setVelocity(nearby.getVelocity().add(knockback));
                         }

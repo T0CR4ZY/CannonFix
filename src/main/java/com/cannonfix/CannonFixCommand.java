@@ -28,9 +28,7 @@ public class CannonFixCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        String subCommand = args[0].toLowerCase();
-
-        switch (subCommand) {
+        switch (args[0].toLowerCase()) {
             case "reload":
                 if (!sender.hasPermission("cannonfix.reload")) {
                     sender.sendMessage(ChatColor.RED + "No permission!");
@@ -63,41 +61,35 @@ public class CannonFixCommand implements CommandExecutor, TabCompleter {
     }
 
     private void sendHelp(CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD + "═══════════ CannonFix ═══════════");
+        sender.sendMessage(ChatColor.GOLD + "========= CannonFix =========");
         sender.sendMessage(ChatColor.YELLOW + "/cannonfix status " + ChatColor.WHITE + "- Show status");
-        sender.sendMessage(ChatColor.YELLOW + "/cannonfix fixworld [world] " + ChatColor.WHITE + "- Apply gamerules");
+        sender.sendMessage(ChatColor.YELLOW + "/cannonfix fixworld " + ChatColor.WHITE + "- Fix gamerules");
         sender.sendMessage(ChatColor.YELLOW + "/cannonfix reload " + ChatColor.WHITE + "- Reload config");
-        sender.sendMessage(ChatColor.GOLD + "══════════════════════════════════");
-        sender.sendMessage(ChatColor.GRAY + "This plugin auto-configures your server for cannoning.");
-        sender.sendMessage(ChatColor.GRAY + "Restart server after first install for full effect!");
+        sender.sendMessage(ChatColor.GOLD + "=============================");
     }
 
     private void showStatus(CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD + "═══════════ CannonFix Status ═══════════");
-        sender.sendMessage(ChatColor.YELLOW + "Plugin Version: " + ChatColor.WHITE + plugin.getDescription().getVersion());
+        sender.sendMessage(ChatColor.GOLD + "========= CannonFix Status =========");
+        sender.sendMessage(ChatColor.YELLOW + "Version: " + ChatColor.WHITE + plugin.getDescription().getVersion());
+        sender.sendMessage(ChatColor.YELLOW + "TNT Consistent Radius: " + 
+            (plugin.getConfig().getBoolean("tnt.consistent-radius", true) ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"));
+        sender.sendMessage(ChatColor.YELLOW + "TNT Consistent Knockback: " + 
+            (plugin.getConfig().getBoolean("tnt.consistent-knockback", true) ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"));
         sender.sendMessage("");
         sender.sendMessage(ChatColor.YELLOW + "World Gamerules:");
         for (World world : Bukkit.getWorlds()) {
             Integer cramming = world.getGameRuleValue(GameRule.MAX_ENTITY_CRAMMING);
-            String status = (cramming != null && cramming == 0) ? ChatColor.GREEN + "✓ OK" : ChatColor.RED + "✗ NEEDS FIX";
-            sender.sendMessage(ChatColor.WHITE + "  " + world.getName() + ": maxEntityCramming=" + cramming + " " + status);
+            String status = (cramming != null && cramming == 0) ? ChatColor.GREEN + "OK" : ChatColor.RED + "NEEDS FIX";
+            sender.sendMessage(ChatColor.WHITE + "  " + world.getName() + ": " + cramming + " " + status);
         }
-        sender.sendMessage("");
-        sender.sendMessage(ChatColor.YELLOW + "Config auto-applied on startup:");
-        sender.sendMessage(ChatColor.WHITE + "  • tnt-entity-height-nerf: 0");
-        sender.sendMessage(ChatColor.WHITE + "  • falling-block-height-nerf: 0");
-        sender.sendMessage(ChatColor.WHITE + "  • max-tnt-per-tick: 5000");
-        sender.sendMessage(ChatColor.WHITE + "  • redstone-implementation: VANILLA");
-        sender.sendMessage(ChatColor.WHITE + "  • max-entity-collisions: 0");
-        sender.sendMessage(ChatColor.WHITE + "  • allow-permanent-block-break-exploits: true");
-        sender.sendMessage(ChatColor.GOLD + "═════════════════════════════════════════");
+        sender.sendMessage(ChatColor.GOLD + "====================================");
     }
 
     private void fixWorld(CommandSender sender, String[] args) {
         if (args.length < 2) {
             for (World world : Bukkit.getWorlds()) {
                 world.setGameRule(GameRule.MAX_ENTITY_CRAMMING, 0);
-                sender.sendMessage(ChatColor.GREEN + "Set maxEntityCramming=0 in: " + world.getName());
+                sender.sendMessage(ChatColor.GREEN + "Fixed: " + world.getName());
             }
         } else {
             World world = Bukkit.getWorld(args[1]);
@@ -106,7 +98,7 @@ public class CannonFixCommand implements CommandExecutor, TabCompleter {
                 return;
             }
             world.setGameRule(GameRule.MAX_ENTITY_CRAMMING, 0);
-            sender.sendMessage(ChatColor.GREEN + "Set maxEntityCramming=0 in: " + world.getName());
+            sender.sendMessage(ChatColor.GREEN + "Fixed: " + world.getName());
         }
     }
 
@@ -115,8 +107,7 @@ public class CannonFixCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
         
         if (args.length == 1) {
-            List<String> subCommands = Arrays.asList("reload", "status", "fixworld");
-            for (String sub : subCommands) {
+            for (String sub : Arrays.asList("reload", "status", "fixworld")) {
                 if (sub.startsWith(args[0].toLowerCase())) {
                     completions.add(sub);
                 }

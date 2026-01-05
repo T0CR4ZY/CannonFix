@@ -1,30 +1,26 @@
 name: CannonFix
-version: 1.3.0
+version: 2.0.0
 main: com.cannonfix.CannonFix
 api-version: '1.21'
 author: Claude
-description: Auto-configures server for optimal TNT cannoning. Fixes W->E stacking issues and normalizes physics.
+description: TNT cannon optimization - config auto-apply and consistent TNT physics
 
 commands:
   cannonfix:
-    description: CannonFix main command
+    description: CannonFix commands
     usage: /<command> [reload|status|fixworld]
-    aliases: [cf, cannon]
+    aliases: [cf]
 
 permissions:
   cannonfix.*:
-    description: All CannonFix permissions
     default: op
     children:
       cannonfix.reload: true
       cannonfix.status: true
       cannonfix.fixworld: true
   cannonfix.reload:
-    description: Reload config
     default: op
   cannonfix.status:
-    description: View status
     default: op
   cannonfix.fixworld:
-    description: Fix world gamerules
     default: op
