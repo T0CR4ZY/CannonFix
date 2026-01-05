@@ -1,26 +1,14 @@
 name: CannonFix
-version: 2.0.0
+version: 2.1.0
 main: com.cannonfix.CannonFix
 api-version: '1.21'
 author: Claude
-description: TNT cannon optimization - config auto-apply and consistent TNT physics
+description: TNT explosion optimization only - does not modify config files
 
 commands:
   cannonfix:
-    description: CannonFix commands
-    usage: /<command> [reload|status|fixworld]
     aliases: [cf]
 
 permissions:
-  cannonfix.*:
-    default: op
-    children:
-      cannonfix.reload: true
-      cannonfix.status: true
-      cannonfix.fixworld: true
   cannonfix.reload:
-    default: op
-  cannonfix.status:
-    default: op
-  cannonfix.fixworld:
     default: op

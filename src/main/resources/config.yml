@@ -1,18 +1,13 @@
-# CannonFix Configuration
-# TNT optimization only - no sand modifications
+# CannonFix - TNT Only
+# This plugin ONLY handles TNT explosions
+# It does NOT modify any server config files
 
-auto-configure:
-  enabled: true
+# Set maxEntityCramming gamerule to 0 on startup
+set-gamerules: true
 
-# TNT Settings
+# TNT explosion settings
 tnt:
   consistent-radius: true
   consistent-knockback: true
   knockback-radius: 8.0
   knockback-power: 1.0
-
-# Config changes applied on startup (restart required):
-# - spigot.yml: tnt-entity-height-nerf: 0, max-tnt-per-tick: 5000
-# - paper-world-defaults.yml: falling-block-height-nerf: 0, tnt-entity-height-nerf: 0, redstone-implementation: VANILLA, max-entity-collisions: 0
-# - paper-global.yml: allow-permanent-block-break-exploits: true, allow-headless-pistons: true
-# - Gamerule: maxEntityCramming: 0
